@@ -8,6 +8,6 @@ end_mins = a * 24 * 60 + b * 60 + c
 result = end_mins - start_mins
 
 if result < 0:
-    print(result)
+    result = -1
 
 print(result)
