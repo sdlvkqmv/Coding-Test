@@ -5,4 +5,4 @@ start_mins = 11 * 24 * 60 + 11 * 60 + 11
 
 end_mins = a * 24 * 60 + b * 60 + c
 
-print(start_mins - end_mins)
+print(end_mins - start_mins)
