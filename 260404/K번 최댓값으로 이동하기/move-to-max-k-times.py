@@ -51,13 +51,18 @@ def BFS(i, j):
                     max_value.append((new_value, (new_i, new_j)))
             #print("max", max_value)
     
-    #print("max before sort", max_value)
-    max_value.sort(key = lambda x: x[1]) #최댓값 여러개인 경우 row, index 순으로 오름차순
-    #print("max after sort", max_value)
+    #이동할곳이 있었던 경우
+    if max_value[0][0] != -1:
+        #print("max before sort", max_value)
+        max_value.sort(key = lambda x: x[1]) #최댓값 여러개인 경우 row, index 순으로 오름차순
+        #print("max after sort", max_value)
 
-    move_result = max_value[0][1] #tuple (i, j)
+        move_result = max_value[0][1] #tuple (i, j)
 
-    return(move_result)
+        return(move_result)
+
+    #이동할 곳이 없었던 경우        
+    return (i, j)
 
 from collections import deque
 q = deque()
