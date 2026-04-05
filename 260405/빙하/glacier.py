@@ -26,21 +26,6 @@ def in_range(i, j):
         return 0 <= j and j < m
     return False
 
-def can_melt(i, j):
-    '''
-    Input : ice's idx
-    Returns if the water can melt the near ice
-    '''
-    pass
-
-def check_end_of_grid(k, p):
-    global n, m
-    if k == 0 or k == n - 1:
-        return True
-    elif p == 0 or p == m - 1:
-        return True
-    return False
-
 def get_water_not_surrounded():
     '''
     BFS
@@ -63,9 +48,7 @@ def get_water_not_surrounded():
                     q.append((new_i, new_j))
                     _visited[new_i][new_j] = True
 
-    return _visited
-
-                
+    return _visited         
 
 def push(i, j, q: deque(), visited: list):
     '''
@@ -107,8 +90,6 @@ def BFS(water_idx: list):
     new_members = []
     melted_count = 0
 
-    water_not_surrounded = get_water_not_surrounded()
-
     for i, water in enumerate(water_idx):
         if water_not_surrounded[water[0]][water[1]]:
             push(water[0], water[1], q, visited)
@@ -140,5 +121,7 @@ def BFS(water_idx: list):
 
     return time, melted_count
 
+
+water_not_surrounded = get_water_not_surrounded()
 time, melted_count = BFS(water_idx)
 print(time, melted_count)
