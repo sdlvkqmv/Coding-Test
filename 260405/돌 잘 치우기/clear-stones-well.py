@@ -34,7 +34,7 @@ def can_go(grid_case, i, j, visited: list):
 def push(i, j, visited: list, q: deque()):
     if in_range(i, j):
         q.append((i, j))
-        visited[i][j] == True
+        visited[i][j] = True
 
 def get_stones_id():
     '''
@@ -82,14 +82,14 @@ def get_grid_case(i):
 
 
 def BFS(grid_case: list, point : tuple):
-    reachable_count = 0
+    reachable_count = 1
     i, j = point
 
     q = deque()
     dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
     visited = [[False for _ in range(n)] for _ in range(n)]
 
-    q.append((i, j))
+    push(i, j, visited, q)
 
     while q:
         i, j = q.popleft()
