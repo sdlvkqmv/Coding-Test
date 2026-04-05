@@ -109,11 +109,11 @@ stone_combination = []
 get_stone_combination(0, [])
 #print(stone_combination)
 
+max = 0
 for i in range(len(stone_combination)):
     #print(stone_combination[i])
     grid_case = get_grid_case(i)
     #print(grid_case)
-    max = 0
     reachable = BFS(grid_case, start_points)
     if max < reachable:
         max = reachable
