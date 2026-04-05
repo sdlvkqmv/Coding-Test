@@ -62,7 +62,9 @@ def push(i, j, q: deque(), visited: list):
 
 def can_go(i, j, visited):
     '''
-    checks 1. in-range, 2. has visited or not
+    checks 
+    1. in-range, 
+    2. has visited or not
     '''
     if in_range(i, j):
         if visited[i][j] == False:
@@ -83,45 +85,38 @@ def count_ice(a):
 def BFS(water_idx: list):
     time = 0
     q = deque()
-    visited = [[False for _ in range(m)] for _ in range(n)]
     dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
+    
+    ice_count = count_ice(a)
+    total_melted_count = 0
 
-    original_members = []
-    new_members = []
-    melted_count = 0
+    while True:
+        last_melted_count = 0
+        visited = [[False for _ in range(m)] for _ in range(n)]
+        push(0, 0, q, visited)
+        ##print(time)
+        #print(a)
+        while q:
+            i, j = q.popleft()
 
-    for i, water in enumerate(water_idx):
-        if water_not_surrounded[water[0]][water[1]]:
-            push(water[0], water[1], q, visited)
-            original_members.append((water[0], water[1]))
+            for di, dj in zip(dis, djs):
+                new_i = i + di
+                new_j = j + dj
 
-    while q:
+                if can_go(new_i, new_j, visited):
+                    if a[new_i][new_j] == 0:
+                        push(new_i, new_j, q, visited)
 
-        if len(original_members) == 0: # 오리지널 멤버들이 다 빠짐 -> 하나의 시퀀스 끝
-            original_members = [member for member in new_members] #오리지널 멤버를 이제 새 멤버로 교체
-            new_members = []
-            time += 1
-            melted_count = 0
+                    elif a[new_i][new_j] == 1:
+                        total_melted_count += 1
+                        last_melted_count += 1
+                        visited[new_i][new_j] = True
+                        a[new_i][new_j] = 0
 
-        i, j = q.popleft()
-
-        for di, dj in zip(dis, djs):
-            new_i = i + di
-            new_j = j + dj
-            if can_go(new_i, new_j, visited):
-                if a[new_i][new_j] == 1:
-                    melted_count += 1
-                push(new_i, new_j, q, visited)
-                new_members.append((new_i, new_j)) #새로운 멤버에 추가
-                if count_ice(a) == 0:
-                    return time + 1, melted_count # 시간 늘리는 분기 오기 전이니까 그전에 time늘려주고
-
-        original_members.pop() #하나의 점에 대해 breadth  끝나면 pop
+                        if total_melted_count == ice_count:
+                            return time + 1, last_melted_count
+        time += 1
 
 
-    return time, melted_count
-
-
-water_not_surrounded = get_water_not_surrounded()
-time, melted_count = BFS(water_idx)
-print(time, melted_count)
+time, last_melted_count = BFS(water_idx)
+print(time, last_melted_count)
