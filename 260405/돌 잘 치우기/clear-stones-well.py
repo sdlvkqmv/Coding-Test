@@ -88,7 +88,7 @@ def BFS(grid_case: list, start_points: list):
     dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
     visited = [[False for _ in range(n)] for _ in range(n)]
     for point in start_points:
-        push(point[0], point[1], visited, q) 
+        push(point[0], point[1], visited, q)
 
     while q:
         i, j = q.popleft()
