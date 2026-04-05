@@ -81,15 +81,14 @@ def get_grid_case(i):
     return grid_case
 
 
-def BFS(grid_case: list, point : tuple):
-    reachable_count = 1
-    i, j = point
+def BFS(grid_case: list, start_points: list):
+    reachable_count = len(start_points)
 
     q = deque()
     dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
     visited = [[False for _ in range(n)] for _ in range(n)]
-
-    push(i, j, visited, q)
+    for point in start_points:
+        push(point[0], point[1], visited, q) 
 
     while q:
         i, j = q.popleft()
@@ -115,9 +114,8 @@ for i in range(len(stone_combination)):
     grid_case = get_grid_case(i)
     #print(grid_case)
     max = 0
-    for point in start_points:
-        reachable = BFS(grid_case, point)
-        if max < reachable:
-            max = reachable
+    reachable = BFS(grid_case, start_points)
+    if max < reachable:
+        max = reachable
 
 print(max)
