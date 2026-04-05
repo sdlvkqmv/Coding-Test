@@ -41,36 +41,30 @@ def check_end_of_grid(k, p):
         return True
     return False
 
-def check_surrounded_ice(i, j):
+def get_water_not_surrounded():
     '''
     BFS
-    For checking if the water is surrounded with ice, by finding a path to end of grid
-    input: water's idx
-    returns: Boolean(True if surrounded with ice)
+    Checks waters not surrounded with ice
+    Returns grid of waters not surrounded(True)
     '''
-    global n ,m
-    
     q = deque()
-    _visited = [[False for _ in range(m)] for _ in range(n)]
     dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
+    _visited = [[False for _ in range(m)] for _ in range(n)]
 
-    def can_move_to_water(k, p):
-        if in_range(k, p):
-            if _visited[k][p] == False and a[k][p] == 0:
-                return True
-        return False
-    
+    q.append((0,0))
 
-    for di, dj in zip(dis, djs):
-        new_i = i + di
-        new_j = j + dj
-        if can_move_to_water(new_i, new_j):
-            q.append((i, j))
-            _visited[i][j] = True
-            if check_end_of_grid(new_i, new_j):
-                return False
-        
-    return True
+    while q:
+        i, j = q.popleft()
+        for di, dj in zip(dis, djs):
+            new_i = i + di
+            new_j = j + dj
+            if in_range(new_i,new_j):
+                if _visited[new_i][new_j] == False and a[new_i][new_j] == 0:
+                    q.append((new_i, new_j))
+                    _visited[new_i][new_j] = True
+
+    return _visited
+
                 
 
 def push(i, j, q: deque(), visited: list):
@@ -113,10 +107,10 @@ def BFS(water_idx: list):
     new_members = []
     melted_count = 0
 
+    water_not_surrounded = get_water_not_surrounded()
+
     for i, water in enumerate(water_idx):
-        #if check_surrounded_ice(water[0], water[1]):
-         #   print(water)
-        if not check_surrounded_ice(water[0], water[1]) or check_end_of_grid(water[0], water[1]):
+        if water_not_surrounded[water[0]][water[1]]:
             push(water[0], water[1], q, visited)
             original_members.append((water[0], water[1]))
 
