@@ -8,7 +8,7 @@ arr = [str(i) for i in arr]
 def in_range(n, string):
     return 0 <= n and n < len(string)
 
-max = -float('inf')
+max = -1
 for i, n1 in enumerate(arr):
     for j, n2 in enumerate(arr[i + 1:]):
         for k, n3 in enumerate(arr[i + j + 2:]):
@@ -21,10 +21,10 @@ for i, n1 in enumerate(arr):
             #print(list)
             #print(len(list[-1]))
 
-            if len(list[0]) < len(list[2]):
+            if len(list[0]) <= len(list[2]):
                 list[0] = (len(list[2]) - len(list[0])) * "0" + list[0]
                 #print(list[0])
-            if len(list[1]) < len(list[2]):
+            if len(list[1]) <= len(list[2]):
                 list[1] = (len(list[2]) - len(list[1])) * "0" + list[1]
                 #print(list[0])
 
@@ -44,5 +44,5 @@ for i, n1 in enumerate(arr):
                 #print(result)
                 if max < result:
                     max = result
-            
+        
 print(max)
