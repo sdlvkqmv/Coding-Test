@@ -9,8 +9,6 @@ def combination(i, result, K, N):
             print(n, end = " ")
         print()
         return
-    elif i > K and len(result) != N:
-        return
     
     for _ in range(1, K + 1):
         result.append(_)
