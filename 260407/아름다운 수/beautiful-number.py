@@ -1,54 +1,38 @@
 n = int(input())
 
 # Please write your code here.
+count = 0
 
-result = []
 
-def search(i, comb: list):
+def search(i, comb):
     '''
     i : current index
     '''
-    global n
+    global n, count
     #print(i, comb, len(comb))
 
-    if len(comb) == n:
-        #print(comb)
-        temp = [_ for _ in comb]
-        result.append(temp)
-        #print(result)
+    if i == n:
+        if is_wonderful(comb):
+            count += 1
         return
-
 
     for _ in range(1, 5):
         comb.append(_)
         search(i + 1, comb)
         comb.pop()
 
-def in_range(i, len):
-    return 0 <= i and i < len
-
-search(0, [])
-count = 0
-for r in result:
+def is_wonderful(r):
     i = 0
-    wonderful = True
 
-    while wonderful:
-        for _ in range(i + 1, i + r[i]):
-            if in_range(_, n):
-                if r[_] == r[i]:
-                    continue
-    
-            wonderful = False
-            break
-
-        i += r[i]
-        if not in_range(i, n):
-            break
-
-    if i == n and wonderful:
-        #print(r)
-        count += 1
+    while i < n:
+        if i + r[i] - 1 >= n:
+            return False
             
-
+        for _ in range(i, i + r[i]):
+            if r[_] != r[i]:
+                return False
+        i += r[i]
+    return True
+                  
+search(0, [])
 print(count)
