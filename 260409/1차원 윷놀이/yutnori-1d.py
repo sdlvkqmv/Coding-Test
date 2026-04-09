@@ -9,8 +9,9 @@ ans = 0
 
 def find_best_score(turn, score):
     global ans, n, m, k
+    ans = max(ans, score)
+    
     if turn == n:
-        ans = max(ans, score)
         return
     
     for i in range(k):
