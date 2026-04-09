@@ -15,7 +15,7 @@ def find_best_score(turn, score):
     
     for i in range(k):
         jump = nums[turn]
-
+        
         if positions[i] < m and positions[i] + jump >= m: #여기 조건 처리가 어렵네
             score += 1
         positions[i] += jump
