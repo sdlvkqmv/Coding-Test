@@ -6,18 +6,19 @@ def print_result(res):
         print(i, end = " ")
     print()
 
-def choose(curr_i, result):
+def choose(count):
     global K, N
-    if curr_i == N + 1:
+    if count == N :
         print_result(result)
         return
     
+    
     for select in range(1, K + 1):
-        if curr_i in (1, 2) or select != result[-1] or select != result[-2]:
+        if count in (0, 1) or select != result[-1] or select != result[-2]:
             result.append(select)
-            choose(curr_i + 1, result)
+            choose(count + 1)
             result.pop()
-            
-        
-choose(1, [])
+
+result = []
+choose(0)
         
