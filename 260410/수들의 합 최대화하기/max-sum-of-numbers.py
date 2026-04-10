@@ -18,22 +18,22 @@ def get_sum():
         sum += grid[p[0]][p[1]]
     return sum
 
-def find_color(count):
+def find_color(row):
     global maxi
-    if count == n:
+    
+    if row == n:
         maxi = max(maxi, get_sum())
         return
 
-    for i in range(n):
-        if not visited_row[i]: # 이미 방문했던 열과 행은 방문하면 안됨
-            for j in range(n):
-                if not visited_col[j]:
-                    colored_points.append((i, j))
-                    visited_row[i], visited_col[j] = True, True 
-                    find_color(count + 1)
-                    
-                    colored_points.pop()
-                    visited_row[i], visited_col[j] = False, False
+    for j in range(n):
+        if not visited_col[j]:
+            colored_points.append((i, j))            
+            visited_col[j] = False
+
+            find_color(row + 1)
+            
+            colored_points.pop()
+            visited_col[j] = False
 
 find_color(0)
 
