@@ -8,6 +8,7 @@ def in_range(i, j):
     global n, m
     if 0 <= i and i < n:
         return 0 <= j and j < m
+    return False
 
 def can_go(i, j):
     if in_range(i, j):
