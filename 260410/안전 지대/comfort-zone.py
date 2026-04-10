@@ -4,8 +4,9 @@ grid = [list(map(int, input().split())) for _ in range(n)]
 # Please write your code here.
 # K값 포문으로 늘려가기
 # 각 포문 안에서  DFS
+'''
 import sys
-sys.setrecursionlimit(200000)
+sys.setrecursionlimit(200000) #<-엥?
 
 
 safe = [[True for _ in row] for row in grid] # True = Safe
@@ -71,3 +72,74 @@ while safe_buildings > 0:
     #print()
 
 print(max_K, max_regions)
+'''
+from collections import deque
+
+safe_buildings = [[True for _ in range(m)] for _ in range(n)]
+
+def update_safe_buildings(K):
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j] <= K:
+                #print(grid[i][j])
+                safe_buildings[i][j] = False # safe_building= False ㅇㅈㄹ로 써놓고 왜안되지 이러고 있었네ㅣ;;;;
+
+
+#update_safe_buildings(10)
+#print(safe_buildings)
+
+def in_range(i, j):
+    if  0 <= i and i < n:
+        return 0 <= j and j < m
+    return False
+
+def can_go(i, j):
+    if in_range(i, j) and safe_buildings[i][j] and not visited[i][j]:
+        return True
+    return False
+
+def push(i, j):
+    q.append((i, j))
+    visited[i][j] = True
+
+def BFS():
+    while q:
+        #print("Visited", visited)
+        i, j = q.popleft()
+        for di, dj in zip(dis, djs):
+            new_i = i + di
+            new_j = j + dj
+            if can_go(new_i, new_j):
+                push(new_i, new_j)
+
+max_safe_zones = 1
+max_K = 1
+
+dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
+
+for K in range(1, 100):
+    update_safe_buildings(K)
+
+    safe_zones = 0
+    q = deque()
+
+    visited = [[False for _ in range(m)] for _ in range(n)]
+
+    #print("K: ", K)
+    #print("Safe")
+    #print(safe_buildings)
+
+    for i in range(n):
+        for j in range(m):
+            if can_go(i, j):
+                safe_zones += 1
+                push(i, j)
+                BFS()
+                #print(f"K: {K}")
+                #print(visited)
+
+    if max_safe_zones < safe_zones:
+        max_safe_zones = safe_zones
+        max_K = K
+
+print(max_K, max_safe_zones)
