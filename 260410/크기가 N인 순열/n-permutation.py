@@ -20,6 +20,6 @@ def find_perm(count):
         
         ans.append(i)
         visited[i] = True
-        find_perm(curr_i + 1)
+        find_perm(count + 1)
         ans.pop()
         visited[i] = False
