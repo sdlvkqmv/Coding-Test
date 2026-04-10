@@ -15,8 +15,7 @@ ans = float('inf')
 def find_min(curr_pos, cost, visited_count):
     global ans
     #print(moves, cost, visited_count)
-    if cost >= ans:
-        return
+
     if visited_count == n and A[curr_pos][0] != 0: # 마지막 0 제외하고 다 방문 완료
         cost += A[curr_pos][0]
         #print("Total: ", cost)
@@ -33,6 +32,7 @@ def find_min(curr_pos, cost, visited_count):
             find_min(next_pos, cost + A[curr_pos][next_pos], visited_count + 1)
             #moves.pop()
             visited[next_pos] = False
+            
     
 find_min(0, 0, 1)
 
