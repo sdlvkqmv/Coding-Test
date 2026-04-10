@@ -14,12 +14,13 @@ def find_min(count, nums_min):
         ans = max(nums_min, ans)
         return
     
-    for row in range(n):
-        for j in range(n):
-            if not visited_cols[j]:
-                visited_cols[j] = True
-                find_min(count + 1, min(nums_min, grid[row][j]))
-                visited_cols[j] = False
+    
+    for j in range(n):
+        if not visited_cols[j]:
+            visited_cols[j] = True
+            #print(count, j, grid[count][j])
+            find_min(count + 1, min(nums_min, grid[count][j]))
+            visited_cols[j] = False
 
 find_min(0, float('inf'))
 
