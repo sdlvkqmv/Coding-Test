@@ -28,9 +28,10 @@ def DFS(i, j):
     for di, dj in zip(dis, djs):
         new_i = i + di
         new_j = j + dj
-        if can_go(new_i, new_j) and not visited[new_i][new_j]:
-            visited[new_i][new_j] = True
-            DFS(new_i, new_j)
+        if can_go(new_i, new_j):
+            if not visited[new_i][new_j]:
+                visited[new_i][new_j] = True
+                DFS(new_i, new_j)
 
 DFS(0,0)
 
