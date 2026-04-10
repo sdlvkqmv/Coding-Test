@@ -4,6 +4,9 @@ grid = [list(map(int, input().split())) for _ in range(n)]
 # Please write your code here.
 # K값 포문으로 늘려가기
 # 각 포문 안에서  DFS
+import sys
+sys.maximum_recursion_depth(200000)
+
 
 safe = [[True for _ in row] for row in grid] # True = Safe
 
