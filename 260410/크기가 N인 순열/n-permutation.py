@@ -7,7 +7,7 @@ def print_ans():
     print()
 
 ans = []
-visited = [False for _ in range(n)]
+visited = [False for _ in range(n + 1)]
 
 def find_perm(curr_i):
     if len(ans) == n:
@@ -18,14 +18,14 @@ def find_perm(curr_i):
         return
     
     for i in range(1, n + 1):
-        if visited[i - 1]:
+        if visited[i]:
             continue
         
         ans.append(i)
-        visited[i - 1] = True
+        visited[i] = True
         find_perm(curr_i + 1)
         ans.pop()
-        visited[i - 1] = False
+        visited[i] = False
         find_perm(curr_i + 1)
 
 find_perm(1)
