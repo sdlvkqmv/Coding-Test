@@ -22,7 +22,7 @@ def find_min(curr_pos, cost, visited_count):
         return
     
     for next_pos in range(n):
-        if not visited[next_pos]:
+        if not visited[next_pos] and A[curr_pos][next_pos] != 0:
             visited[next_pos] = True
             #moves.append(next_pos)
             find_min(next_pos, cost + A[curr_pos][next_pos], visited_count + 1)
