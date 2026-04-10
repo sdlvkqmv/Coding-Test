@@ -4,7 +4,9 @@ grid = [list(map(int, input().split())) for _ in range(n)]
 # Please write your code here.
 # K값 포문으로 늘려가기
 # 각 포문 안에서  DFS
-'''
+
+
+### DFS 풀이####
 import sys
 sys.setrecursionlimit(200000) #<-엥?
 
@@ -72,7 +74,9 @@ while safe_buildings > 0:
     #print()
 
 print(max_K, max_regions)
-'''
+
+#### BFS 풀이 ###
+
 from collections import deque
 
 safe_buildings = [[True for _ in range(m)] for _ in range(n)]
@@ -112,7 +116,7 @@ def BFS():
             if can_go(new_i, new_j):
                 push(new_i, new_j)
 
-max_safe_zones = 1
+max_safe_zones = 0
 max_K = 1
 
 dis, djs = [1, -1, 0, 0], [0, 0, 1, -1]
