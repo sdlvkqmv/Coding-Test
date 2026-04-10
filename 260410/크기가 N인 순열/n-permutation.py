@@ -23,3 +23,5 @@ def find_perm(count):
         find_perm(count + 1)
         ans.pop()
         visited[i] = False
+
+find_perm(1)
