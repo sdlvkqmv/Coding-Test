@@ -10,9 +10,9 @@ safe = [[True for _ in row] for row in grid] # True = Safe
 def update_safe_building(K, safe_building):
     for i, row in enumerate(grid):
         for j, value in enumerate(row):
-            if grid[i][j] <= K:
+            if grid[i][j] <= K and safe[i][j]:
                 safe[i][j] = False
-                safe_building -= 1
+                safe_building -= 1 #이부분에서 이미 false였던 애들도 false 로 바뀌면서 카운팅이 중복으로 들어감
 
     return safe_building
 
@@ -45,6 +45,7 @@ max_K = 1
 
 while safe_buildings > 0:
     safe_buildings = update_safe_building(K, safe_buildings)
+    #print(safe_buildings)
     
     #Init for each K
     safe_regions = 0
@@ -52,12 +53,18 @@ while safe_buildings > 0:
     for i in range(n):
         for j in range(m):
             if can_go(i, j):
+                ##print("Safe Map")
+                #print(safe)
+
+                #print(i, j)
                 safe_regions += 1
                 DFS(i, j)
+    #print(f"K : {K}, safe_regions : {safe_regions}, safe_buildings: {safe_buildings}")
     
     if max_regions < safe_regions:
         max_regions = safe_regions
         max_K = K
     K += 1
+    #print()
 
 print(max_K, max_regions)
