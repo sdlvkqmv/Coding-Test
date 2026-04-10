@@ -27,8 +27,8 @@ def find_color(row):
 
     for j in range(n):
         if not visited_col[j]:
-            colored_points.append((i, j))            
-            visited_col[j] = False
+            colored_points.append((row, j))            
+            visited_col[j] = True
 
             find_color(row + 1)
             
